@@ -1,8 +1,8 @@
 import streamlit as st
 import pymongo
 
-uri = "mongodb+srv://m220student:test@sandbox.zqzg8.mongodb.net/sample_mflix?ssl=true&ssl_cert_reqs=CERT_NONE"
-client = pymongo.MongoClient(uri)
+uri = "mongodb+srv://m220student:test@sandbox.zqzg8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+client = pymongo.MongoClient(uri, connect=False)
 mflix = client.sample_mflix
 
 movies = mflix.movies
