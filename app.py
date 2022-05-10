@@ -3,7 +3,8 @@ import pymongo
 
 
 cluster = "mongodb+srv://m001-student:test-run@sandbox.zqzg8.mongodb.net/sample_airbnb?retryWrites=true&w=majority"
-client = pymongo.MongoClient(cluster, server_api=ServerApi('1'))
+server_api = pymongo.server_api.ServerApi('1')
+client = pymongo.MongoClient(cluster, server_api=server_api)
 #db = client.test
 
 st.title("With Pymongo")
