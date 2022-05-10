@@ -9,4 +9,4 @@ st.title("With SQLite")
 for row in c.execute("SELECT * FROM vocab WHERE unit = ?", unit):
     st.write(row[2])
 
-con.close()
+conn.close()
