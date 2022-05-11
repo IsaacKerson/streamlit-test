@@ -13,16 +13,22 @@ def check_answer(item, answer):
 
 def form_callback(questions):
     st.session_state.form_submit = True
+    num_correct = 0
     for idx, items in enumerate(questions):
         answer = st.session_state[idx]
         correct = 'incorrect'
         if check_answer(items[1], answer):
             correct = 'correct'
-        st.subheader(f"Question {idx + 1}") 
+            num_correct += 1
+            st.success(f"Question {idx + 1}")
+        else:
+            st.error(f"Question {idx + 1}")
         st.write(f"{items[3]}")
         st.write(f"Answer: {items[1]}")
         st.write(f"Your answer: {answer}")
         st.write(f"You are {correct}.")
+    score_val = 100 * num_correct / len(questions)
+    st.metric(label="Score", value=f"{score_val}%")
     
 if "form_submit" not in st.session_state: 
     conn = sqlite3.connect('vocabulary.db')
