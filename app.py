@@ -8,6 +8,10 @@ def add_blanks(word, sentence, blank = "__"):
 def chunker(seq, size):
     return (seq[pos:pos + size] for pos in range(0, len(seq), size))
 
+def form_callback():
+    st.write(st.session_state.q_1)
+    st.write(st.session_state.q_2)
+
 conn = sqlite3.connect('vocabulary.db')
 c = conn.cursor()
 
@@ -45,8 +49,8 @@ st.table(chunker(word_bank, 5))
 if 'form_submit' not in st.session_state:
     with st.form("sentence_completion"):
         for q in questions:
-            st.text_input(f'{q[0]}. {q[3]}', key=str(q[0]), placeholder="Type answer here")
-        submitted = st.form_submit_button("Submit")
+            st.text_input(f'{q[0]}. {q[3]}', key=f'q_{q[0]}', placeholder="Type answer here")
+        submitted = st.form_submit_button(label="Submit", on_click=form_callback)
         if submitted:
             st.session_state.questions = questions
             st.session_state.form_submit = True
