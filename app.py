@@ -17,7 +17,7 @@ else:
 
     units_list = []
     for item in c.execute("SELECT DISTINCT unit FROM vocab"):
-    units_list.append(item[0])
+        units_list.append(item[0])
 
     st.title("Sentence Completion")
     st.selectbox('Select a unit.', units_list, key='unit')
