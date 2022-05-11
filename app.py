@@ -11,13 +11,6 @@ def chunker(seq, size):
 def check_answer(item, answer):
   return item == answer
 
-# def answer_feedback(idx, items, answer):
-#   correct = 'incorrect'
-#   if check_answer(items[1], answer):
-#     correct = 'correct'
-#   feedback = f'''Question: {idx + 1} {items[3]}\nAnswer: {items[1]}; Your answer: {answer}; You are {correct}.'''
-#   return feedback
-
 def form_callback(questions):
     st.session_state.form_submit = True
     for idx, items in enumerate(questions):
@@ -25,13 +18,12 @@ def form_callback(questions):
         correct = 'incorrect'
         if check_answer(items[1], answer):
             correct = 'correct'
-        st.header(f"Question {idx + 1}") 
-        st.subheader(f"{items[3]}")
-        st.subheader(f"Answer: {items[1]}")
-        st.subheader(f"Your answer: {answer}")
-        st.subheader(f"You are {correct}.")
+        st.subheader(f"Question {idx + 1}") 
+        st.write(f"{items[3]}")
+        st.write(f"Answer: {items[1]}")
+        st.write(f"Your answer: {answer}")
+        st.write(f"You are {correct}.")
     
-
 if "form_submit" not in st.session_state: 
     conn = sqlite3.connect('vocabulary.db')
     c = conn.cursor()
