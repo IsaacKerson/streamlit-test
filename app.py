@@ -58,6 +58,8 @@ def form_callback(questions):
     query = "SELECT * FROM responses WHERE session_id = ?"
     for item in c.execute(query, session_tup):
         st.write(item)
+    if int(score_val) == 100:
+        st.balloons()
     
 if "form_submit" not in st.session_state: 
     c, conn = db_connect(DATABASE)
