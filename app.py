@@ -3,11 +3,12 @@ import sqlite3
 import random
 import datetime
 import string
+import re
 
 DATABASE = 'vocabulary.db'
 
 def add_blanks(word, sentence, blank = "__"):
-  return sentence.replace(word, blank)
+  return re.sub(word, blank, sentence, flags=re.IGNORECASE)
 
 def chunker(seq, size):
     return (seq[pos:pos + size] for pos in range(0, len(seq), size))
