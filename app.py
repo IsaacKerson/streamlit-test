@@ -53,7 +53,7 @@ def form_callback(questions):
     conn.close()
     score_val = 100 * num_correct / len(questions)
     st.metric(label="Final Score", value=f"{score_val}%")
-    
+    c, conn = db_connect(DATABASE)
     session_tup = (session_id,)
     query = "SELECT * FROM responses WHERE session_id = ?"
     for item in c.execute(query, session_tup):
