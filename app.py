@@ -8,11 +8,16 @@ def add_blanks(word, sentence, blank = "__"):
 def chunker(seq, size):
     return (seq[pos:pos + size] for pos in range(0, len(seq), size))
 
+def check_answer(item, answer):
+  return item == answer
+
 def form_callback(questions):
-    st.session_state.questions = questions
-    st.session_state.form_submit = True
-    for k, v in st.session_state.items():
-        st.write(k, v)
+    for idx, items in enumerate(questions):
+        st.write(check_answer(items[1], answers[idx]))
+    # st.session_state.questions = questions
+    # st.session_state.form_submit = True
+    # for k, v in st.session_state.items():
+    #     st.write(k, v)
 
 if "form_submit" not in st.session_state: 
     conn = sqlite3.connect('vocabulary.db')
