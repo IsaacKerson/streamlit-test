@@ -1,6 +1,8 @@
 import streamlit as st
 import sqlite3
 import random
+import datetime
+import string
 
 def add_blanks(word, sentence, blank = "__"):
   return sentence.replace(word, blank)
@@ -8,18 +10,27 @@ def add_blanks(word, sentence, blank = "__"):
 def chunker(seq, size):
     return (seq[pos:pos + size] for pos in range(0, len(seq), size))
 
+def random_session_id():
+  alphabet = string.ascii_lowercase + string.digits
+  return ''.join(random.choices(alphabet, k=12))
+
 def check_answer(item, answer):
   return item == answer
 
 def form_callback(questions):
     st.session_state.form_submit = True
     num_correct = 0
+    session_id = random_session_id()
+    student_id = 'UKWN'
+    uct_iso = datetime.datetime.utcnow().isoformat()
     st.title("Feedback")
     for idx, items in enumerate(questions):
         answer = st.session_state[idx]
-        correct = 'incorrect'
+        correct_str = 'incorrect'
+        correct_int = 0
         if check_answer(items[1], answer):
-            correct = 'correct'
+            correct_str = 'correct'
+            correct_int = 1
             num_correct += 1
             st.success(f"Question {idx + 1}")
         else:
@@ -27,7 +38,11 @@ def form_callback(questions):
         st.write(f"{items[3]}")
         st.write(f"Answer: {items[1]}")
         st.write(f"Your answer: {answer}")
-        st.write(f"You are {correct}.")
+        st.write(f"You are {correct_str}.")
+        insert_tup = (student_id, session_id, uct_iso, items[1], items[2], answer, correct_int, )
+        c.execute("INSERT INTO responses VALUES (?, ?, ?, ?, ?, ?, ?)", insert_tup)
+    conn.commit()
+    conn.close()
     score_val = 100 * num_correct / len(questions)
     st.metric(label="Final Score", value=f"{score_val}%")
     
