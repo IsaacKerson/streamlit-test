@@ -16,7 +16,7 @@ unit_tup = (unit,)
 
 st.title(unit)
 
-# for row in c.execute("SELECT * FROM vocab WHERE unit = ?", unit_tup):
-#     st.write(row[2])
+for row in c.execute("SELECT * FROM vocab WHERE unit = ? LIMIT 10", unit_tup):
+    st.write(row[2])
 
 conn.close()
