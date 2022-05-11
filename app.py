@@ -42,13 +42,15 @@ st.subheader("Word Bank")
 random.shuffle(word_bank)
 st.table(chunker(word_bank, 5))
 
-with st.form("sentence_completion"):
-    for q in questions:
-        st.text_input(f'{q[0]}. {q[3]}', key=q[0], placeholder="Type answer here")
-    submitted = st.form_submit_button("Submit")
-    if submitted:
-        st.session_state.questions = questions
-        st.write(st.session_state.FormSubmitter:sentence_completion-Submit)
+if 'form_submit' not in st.session_state:
+    with st.form("sentence_completion"):
+        for q in questions:
+            st.text_input(f'{q[0]}. {q[3]}', key=q[0], placeholder="Type answer here")
+        submitted = st.form_submit_button("Submit")
+        if submitted:
+            st.session_state.questions = questions
+            st.session_state.form_submit = True
+            st.write(st.session_state.form_submit)
 
 for k, v in st.session_state.items():
     st.write(k, v)
