@@ -43,7 +43,7 @@ if "form_submit" not in st.session_state:
         word = item[2]
         word_bank.append(word)
         sentence = item[4]
-        questions.append((idx + 1, word, sentence, add_blanks(word, sentence)))
+        questions.append((idx, word, sentence, add_blanks(word, sentence)))
 
     st.subheader("Word Bank")
     random.shuffle(word_bank)
@@ -51,7 +51,7 @@ if "form_submit" not in st.session_state:
 
     with st.form("sentence_completion"):
         for q in questions:
-            st.text_input(f'{q[0]}. {q[3]}', key=q[0], placeholder="Type answer here")
+            st.text_input(f'{q[0] + 1}. {q[3]}', key=q[0], placeholder="Type answer here")
         submitted = st.form_submit_button(label="Submit", on_click=form_callback, args=(questions,))
         if submitted:
             st.write("Submitted")
