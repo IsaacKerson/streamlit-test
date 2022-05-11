@@ -44,5 +44,6 @@ st.table(chunker(word_bank, 5))
 
 for q in questions:
     st.write(f'{q[0]}. {q[3]}')
+    st.text_input("", key=q[0] placeholder="Type answer here")
 
 conn.close()
