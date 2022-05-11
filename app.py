@@ -19,6 +19,11 @@ def random_session_id():
 def check_answer(item, answer):
   return item == answer
 
+def db_connect(database):
+    conn = sqlite3.connect(database)
+    c = conn.cursor()
+    return c, conn
+
 def form_callback(questions):
     st.session_state.form_submit = True
     num_correct = 0
@@ -42,8 +47,9 @@ def form_callback(questions):
         st.write(f"Your answer: {answer}")
         st.write(f"You are {correct_str}.")
         insert_tup = (student_id, session_id, uct_iso, items[1], items[2], answer, correct_int, )
-        conn = sqlite3.connect(DATABASE)
-        c = conn.cursor()
+        c, conn = db_connect(DATABASE)
+        # conn = sqlite3.connect(DATABASE)
+        # c = conn.cursor()
         c.execute("INSERT INTO responses VALUES (?, ?, ?, ?, ?, ?, ?)", insert_tup)
     conn.commit()
     conn.close()
@@ -51,8 +57,7 @@ def form_callback(questions):
     st.metric(label="Final Score", value=f"{score_val}%")
     
 if "form_submit" not in st.session_state: 
-    conn = sqlite3.connect(DATABASE)
-    c = conn.cursor()
+    c, conn = db_connect(DATABASE)
 
     units_list = []
     for item in c.execute("SELECT DISTINCT unit FROM vocab"):
