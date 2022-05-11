@@ -19,11 +19,16 @@ input_tup = (unit, num_q)
 
 st.title(unit)
 
+questions = []
+
 query = "SELECT * FROM vocab WHERE unit = ? ORDER BY RANDOM() LIMIT ?"
 
 for idx, item in enumerate(c.execute(query, input_tup)):
     word = item[2]
     sentence = item[4]
-    st.write(f'{idx + 1}. {add_blanks(word, sentence)}')
+    questions.append((idx + 1, word, sentence, add_blanks(word, sentence)))
 
+for q in questions:
+    st.write(f'{q[0]}. {q[4]}')
+    
 conn.close()
