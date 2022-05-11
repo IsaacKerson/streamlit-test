@@ -8,7 +8,7 @@ def add_blanks(word, sentence, blank = "__"):
 def chunker(seq, size):
     return (seq[pos:pos + size] for pos in range(0, len(seq), size))
 
-if st.session_state.form_submit == True:
+if st.session_state.form_submit and st.session_state.form_submit == True:
     for k, v in st.session_state.items():
         st.write(k, v)
 else: 
