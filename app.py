@@ -11,9 +11,17 @@ def chunker(seq, size):
 def check_answer(item, answer):
   return item == answer
 
+def answer_feedback(idx, items, answer):
+  correct = 'incorrect'
+  if check_answer(items[1], answer):
+    correct = 'correct'
+  feedback = f'''Question: {idx} {items[3]}\nAnswer: {items[1]}; Your answer: {answer}; You are {correct}.'''
+  return feedback
+
 def form_callback(questions):
     for idx, items in enumerate(questions):
-        st.write(check_answer(items[1], st.session_state[idx]))
+        st.write(answer_feedback(idx + 1, items, st.session_state[idx]))
+        # st.write(check_answer(items[1], st.session_state[idx]))
     # st.session_state.questions = questions
     st.session_state.form_submit = True
     # for k, v in st.session_state.items():
