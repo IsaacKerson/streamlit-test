@@ -1,7 +1,8 @@
 import streamlit as st
 import sqlite3
 
-
+def add_blanks(word, sentence, blank = "__"):
+  return sentence.replace(word, blank)
 
 conn = sqlite3.connect('vocabulary.db')
 c = conn.cursor()
@@ -18,7 +19,9 @@ input_tup = (unit, num_q)
 
 st.title(unit)
 
-for row in c.execute("SELECT * FROM vocab WHERE unit = ? LIMIT ?", input_tup):
-    st.write(row[2])
+for idx, item in enumerate(c.execute("SELECT * FROM vocab WHERE unit = ? LIMIT ?", input_tup)):
+    word = item[2]
+    sentence = item[4]
+    st.write(f'{idx + 1}. {add_blanks(word, sentence)}')
 
 conn.close()
