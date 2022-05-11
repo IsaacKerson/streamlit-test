@@ -48,13 +48,16 @@ def form_callback(questions):
         st.write(f"You are {correct_str}.")
         insert_tup = (student_id, session_id, uct_iso, items[1], items[2], answer, correct_int, )
         c, conn = db_connect(DATABASE)
-        # conn = sqlite3.connect(DATABASE)
-        # c = conn.cursor()
         c.execute("INSERT INTO responses VALUES (?, ?, ?, ?, ?, ?, ?)", insert_tup)
     conn.commit()
     conn.close()
     score_val = 100 * num_correct / len(questions)
     st.metric(label="Final Score", value=f"{score_val}%")
+    
+    session_tup = (session_id,)
+    query = "SELECT * FROM responses WHERE session_id = ?"
+    for item in c.execute(query, session_tup):
+        st.write(item)
     
 if "form_submit" not in st.session_state: 
     c, conn = db_connect(DATABASE)
