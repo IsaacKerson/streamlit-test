@@ -29,7 +29,7 @@ def form_callback(questions):
         st.write(f"Your answer: {answer}")
         st.write(f"You are {correct}.")
     score_val = 100 * num_correct / len(questions)
-    st.metric(label="Score", value=f"{score_val}%")
+    st.metric(label="Final Score", value=f"{score_val}%")
     
 if "form_submit" not in st.session_state: 
     conn = sqlite3.connect('vocabulary.db')
