@@ -15,7 +15,7 @@ def form_callback(questions):
     for idx, items in enumerate(questions):
         st.write(check_answer(items[1], st.session_state[idx]))
     # st.session_state.questions = questions
-    # st.session_state.form_submit = True
+    st.session_state.form_submit = True
     # for k, v in st.session_state.items():
     #     st.write(k, v)
 
