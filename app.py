@@ -8,10 +8,7 @@ def add_blanks(word, sentence, blank = "__"):
 def chunker(seq, size):
     return (seq[pos:pos + size] for pos in range(0, len(seq), size))
 
-if st.session_state.form_submit and st.session_state.form_submit == True:
-    for k, v in st.session_state.items():
-        st.write(k, v)
-else: 
+if "form_submit" not in st.session_state: 
     conn = sqlite3.connect('vocabulary.db')
     c = conn.cursor()
 
@@ -55,3 +52,6 @@ else:
             st.session_state.form_submit = True
             st.write(st.session_state.form_submit)
     conn.close()
+else:
+    for k, v in st.session_state.items():
+        st.write(k, v)
