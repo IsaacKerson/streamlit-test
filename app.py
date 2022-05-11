@@ -51,7 +51,7 @@ if "form_submit" not in st.session_state:
 
     with st.form("sentence_completion"):
         for q in questions:
-            st.text_input(f'{q[0]}. {q[3]}', key=f'q_{q[0]}', placeholder="Type answer here")
+            st.text_input(f'{q[0]}. {q[3]}', key=q[0], placeholder="Type answer here")
         submitted = st.form_submit_button(label="Submit", on_click=form_callback, args=(questions,))
         if submitted:
             st.write("Submitted")
