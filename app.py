@@ -1,5 +1,6 @@
 import streamlit as st
 import sqlite3
+import random
 
 def add_blanks(word, sentence, blank = "__"):
   return sentence.replace(word, blank)
@@ -38,7 +39,7 @@ for idx, item in enumerate(c.execute(query, input_tup)):
     questions.append((idx + 1, word, sentence, add_blanks(word, sentence)))
 
 st.subheader("Word Bank")
-st.table(chunker(word_bank, 5))
+st.table(chunker(random.shuffle(word_bank), 5))
 
 for q in questions:
     st.write(f'{q[0]}. {q[3]}')
