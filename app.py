@@ -19,7 +19,9 @@ input_tup = (unit, num_q)
 
 st.title(unit)
 
-for idx, item in enumerate(c.execute("SELECT * FROM vocab WHERE unit = ? LIMIT ?", input_tup)):
+query = "SELECT * FROM vocab WHERE unit = ? ORDER BY RANDOM() LIMIT ?"
+
+for idx, item in enumerate(c.execute(query, input_tup)):
     word = item[2]
     sentence = item[4]
     st.write(f'{idx + 1}. {add_blanks(word, sentence)}')
