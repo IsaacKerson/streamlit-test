@@ -39,7 +39,8 @@ for idx, item in enumerate(c.execute(query, input_tup)):
     questions.append((idx + 1, word, sentence, add_blanks(word, sentence)))
 
 st.subheader("Word Bank")
-st.table(chunker(random.shuffle(word_bank), 5))
+random.shuffle(word_bank)
+st.table(chunker(word_bank, 5))
 
 for q in questions:
     st.write(f'{q[0]}. {q[3]}')
