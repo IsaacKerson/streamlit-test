@@ -38,9 +38,6 @@ for idx, item in enumerate(c.execute(query, input_tup)):
     sentence = item[4]
     questions.append((idx + 1, word, sentence, add_blanks(word, sentence)))
 
-if 'questions' not in st.session_state:
-    st.session_state.questions = questions
-
 st.subheader("Word Bank")
 random.shuffle(word_bank)
 st.table(chunker(word_bank, 5))
@@ -50,7 +47,8 @@ with st.form("sentence_completion"):
         st.text_input(f'{q[0]}. {q[3]}', key=q[0], placeholder="Type answer here")
     submitted = st.form_submit_button("Submit")
     if submitted:
-        st.write("submitted")
+        st.session_state.questions = questions
+        st.write(st.session_state.FormSubmitter:sentence_completion-Submit)
 
 for k, v in st.session_state.items():
     st.write(k, v)
