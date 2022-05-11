@@ -29,6 +29,6 @@ for idx, item in enumerate(c.execute(query, input_tup)):
     questions.append((idx + 1, word, sentence, add_blanks(word, sentence)))
 
 for q in questions:
-    st.write(f'{q[0]}. {q[4]}')
-    
+    st.write(f'{q[0]}. {q[3]}')
+
 conn.close()
