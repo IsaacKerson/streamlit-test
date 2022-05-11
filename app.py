@@ -56,5 +56,4 @@ if "form_submit" not in st.session_state:
         if submitted:
             st.write("Submitted")
     conn.close()
-else:
     
