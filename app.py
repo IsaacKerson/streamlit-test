@@ -20,7 +20,11 @@ unit = st.session_state.unit
 num_q = st.session_state.num_q
 input_tup = (unit, num_q)
 
-st.title(unit)
+st.title("Sentence Completion")
+
+st.header(unit)
+
+st.write("Complete the sentences with the words from the word bank.")
 
 questions = []
 word_bank = []
