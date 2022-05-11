@@ -4,6 +4,8 @@ import random
 import datetime
 import string
 
+DATABASE = 'vocabulary.db'
+
 def add_blanks(word, sentence, blank = "__"):
   return sentence.replace(word, blank)
 
@@ -40,6 +42,8 @@ def form_callback(questions):
         st.write(f"Your answer: {answer}")
         st.write(f"You are {correct_str}.")
         insert_tup = (student_id, session_id, uct_iso, items[1], items[2], answer, correct_int, )
+        conn = sqlite3.connect(DATABASE)
+        c = conn.cursor()
         c.execute("INSERT INTO responses VALUES (?, ?, ?, ?, ?, ?, ?)", insert_tup)
     conn.commit()
     conn.close()
@@ -47,7 +51,7 @@ def form_callback(questions):
     st.metric(label="Final Score", value=f"{score_val}%")
     
 if "form_submit" not in st.session_state: 
-    conn = sqlite3.connect('vocabulary.db')
+    conn = sqlite3.connect(DATABASE)
     c = conn.cursor()
 
     units_list = []
