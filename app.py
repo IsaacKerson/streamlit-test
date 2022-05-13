@@ -5,7 +5,7 @@ import datetime
 
 # Custom imports
 from multipage import MultiPage
-from pages import data_upload
+from pages import upload
 from pages.utils import add_blanks, chunker, random_session_id, check_answer
 
 DATABASE = 'vocabulary.db'
