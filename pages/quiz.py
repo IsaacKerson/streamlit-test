@@ -17,13 +17,6 @@ def app():
         c = conn.cursor()
         return c, conn
 
-    def chk_conn(conn):
-     try:
-        conn.cursor()
-        return True
-     except Exception as ex:
-        return False
-
     def form_callback(questions):
         st.session_state.form_submit = True
         num_correct = 0
@@ -56,11 +49,6 @@ def app():
         
     if "form_submit" not in st.session_state: 
         c, conn = db_connect(DATABASE)
-
-        st.write(chk_conn(conn))
-        
-        c.execute("SELECT name FROM sqlite_master WHERE type='table';")
-        st.write(c.fetchall())
 
         units_list = []
         for item in c.execute("SELECT DISTINCT unit FROM vocab"):
