@@ -1,3 +1,4 @@
+from pages.utils import add_blanks
 import streamlit as st
 import sqlite3
 import random
@@ -7,7 +8,7 @@ import re
 
 # Custom imports
 
-from pages import utils
+from pages.utils import add_blanks
 
 DATABASE = 'vocabulary.db'
 
