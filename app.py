@@ -1,29 +1,21 @@
-from pages.utils import add_blanks
 import streamlit as st
 import sqlite3
 import random
-import datetime
-import string
-import re
 
 # Custom imports
-
-from pages.utils import add_blanks
+from pages.utils import add_blanks, chunker, random_session_id, check_answer
 
 DATABASE = 'vocabulary.db'
 
-# def add_blanks(word, sentence, blank = "__"):
-#   return re.sub(word, blank, sentence, flags=re.IGNORECASE)
+# def chunker(seq, size):
+#     return (seq[pos:pos + size] for pos in range(0, len(seq), size))
 
-def chunker(seq, size):
-    return (seq[pos:pos + size] for pos in range(0, len(seq), size))
+# def random_session_id():
+#   alphabet = string.ascii_lowercase + string.digits
+#   return ''.join(random.choices(alphabet, k=12))
 
-def random_session_id():
-  alphabet = string.ascii_lowercase + string.digits
-  return ''.join(random.choices(alphabet, k=12))
-
-def check_answer(item, answer):
-  return item == answer
+# def check_answer(item, answer):
+#   return item == answer
 
 def db_connect(database):
     conn = sqlite3.connect(database)
