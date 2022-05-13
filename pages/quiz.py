@@ -8,7 +8,7 @@ from multipage import MultiPage
 from pages.utils import add_blanks, chunker, random_session_id, check_answer
 
 def app():
-    DATABASE = 'vocabulary.db'
+    DATABASE = 'vocabulary_current.db'
 
     def db_connect(database):
         conn = sqlite3.connect(database)
