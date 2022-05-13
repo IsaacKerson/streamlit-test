@@ -56,6 +56,9 @@ def app():
         c, conn = db_connect(DATABASE)
 
         st.write(chk_conn(conn))
+        
+        c.execute("SELECT name FROM sqlite_master WHERE type='table';")
+        st.write(c.fetchall())
 
         units_list = []
         for item in c.execute("SELECT DISTINCT unit FROM vocab"):
