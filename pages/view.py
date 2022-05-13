@@ -21,4 +21,3 @@ def app():
                 st.write(f'{idx}: {item}')
         except Exception as error:
             st.write(error)
-            
