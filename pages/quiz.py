@@ -1,4 +1,5 @@
 import streamlit as st
+import os.path
 import sqlite3
 import random
 import datetime
@@ -8,7 +9,8 @@ from multipage import MultiPage
 from pages.utils import add_blanks, chunker, random_session_id, check_answer
 
 def app():
-    DATABASE = 'vocabulary_current.db'
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    DATABASE = os.path.join(BASE_DIR, 'vocabulary_current.db')
 
     def db_connect(database):
         conn = sqlite3.connect(database)
