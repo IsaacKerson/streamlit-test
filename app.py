@@ -8,16 +8,6 @@ from pages.utils import add_blanks, chunker, random_session_id, check_answer
 
 DATABASE = 'vocabulary.db'
 
-# def chunker(seq, size):
-#     return (seq[pos:pos + size] for pos in range(0, len(seq), size))
-
-# def random_session_id():
-#   alphabet = string.ascii_lowercase + string.digits
-#   return ''.join(random.choices(alphabet, k=12))
-
-# def check_answer(item, answer):
-#   return item == answer
-
 def db_connect(database):
     conn = sqlite3.connect(database)
     c = conn.cursor()
@@ -57,8 +47,6 @@ def form_callback(questions):
     # query = "SELECT * FROM responses WHERE session_id = ?"
     # for item in c.execute(query, session_tup):
     #     st.write(item)
-    if int(score_val) == 100:
-        st.balloons()
     
 if "form_submit" not in st.session_state: 
     c, conn = db_connect(DATABASE)
