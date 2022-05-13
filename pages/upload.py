@@ -12,7 +12,6 @@ def app():
 
     # Code to read a single file 
     uploaded_file = st.file_uploader("Choose a file", type = ['csv', 'xlsx'])
-    global data
     if uploaded_file is not None:
         try:
             data = pd.read_csv(uploaded_file)
