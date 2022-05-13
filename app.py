@@ -7,7 +7,7 @@ import re
 
 # Custom imports
 
-from pages import add_blanks
+from pages import utils
 
 DATABASE = 'vocabulary.db'
 
