@@ -5,7 +5,7 @@ import datetime
 
 # Custom imports
 from multipage import MultiPage
-from utils import add_blanks, chunker, random_session_id, check_answer
+from pages.utils import add_blanks, chunker, random_session_id, check_answer
 
 def app():
     DATABASE = '../vocabulary.db'
