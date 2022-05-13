@@ -4,7 +4,7 @@ import pandas as pd
 
 # @st.cache
 def app():
-    st.markdown("## Data Upload")
+    st.markdown("## Upload Data")
 
     # Upload the dataset and save as csv
     st.markdown("### Upload a csv file for analysis.") 
