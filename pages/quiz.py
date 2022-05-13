@@ -6,16 +6,16 @@ import datetime
 
 # Custom imports
 from multipage import MultiPage
-from pages.utils import add_blanks, chunker, random_session_id, check_answer
+from pages.utils import add_blanks, chunker, random_session_id, check_answer, db_connect
 
 def app():
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     DATABASE = os.path.join(BASE_DIR, 'vocabulary_current.db')
 
-    def db_connect(database):
-        conn = sqlite3.connect(database)
-        c = conn.cursor()
-        return c, conn
+    # def db_connect(database):
+    #     conn = sqlite3.connect(database)
+    #     c = conn.cursor()
+    #     return c, conn
 
     def form_callback(questions):
         st.session_state.form_submit = True

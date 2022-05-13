@@ -17,6 +17,11 @@ def random_session_id():
 def check_answer(item, answer):
   return item == answer
 
+def db_connect(database):
+    conn = sqlite3.connect(database)
+    c = conn.cursor()
+    return c, conn
+
 def chk_conn(conn):
   try:
     conn.cursor()
