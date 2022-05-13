@@ -15,10 +15,10 @@ def app():
 
     query = st.text_input("Query", placeholder="Type query here")
 
-    if len(query) > 0:
+    if len(query) > 1:
         try:
             for idx, item in enumerate(c.execute(query)):
-                st.write(f'{inx}: {item}')
+                st.write(f'{idx}: {item}')
         except Exception as error:
             st.write(error)
             
