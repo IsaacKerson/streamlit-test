@@ -20,11 +20,9 @@ def app():
             print(e)
             data = pd.read_excel(uploaded_file)
     
-
-    ''' Load the data and save the columns with categories as a dataframe. 
-    This section also allows changes in the numerical and categorical columns. '''
     if st.button("Load Data"):
         
-        # Raw data 
+        st.markdown("### Uploaded Data")
+        st.write("\n")
         st.dataframe(data)
         # data.to_csv('data/main_data.csv', index=False)
