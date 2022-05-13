@@ -1,18 +1,19 @@
 import streamlit as st
-import numpy as np
 import pandas as pd
+import numpy as np
 
-from st_aggrid import AgGrid, DataReturnMode, GridUpdateMode, GridOptionsBuilder
+from st_aggrid import AgGrid, GridOptionsBuilder, JsCode
 
-df_template = pd.DataFrame(
-    '',
-    index=range(10),
-    columns=list('abcde')
-)
+def app():
+    df_template = pd.DataFrame(
+        '',
+        index=range(10),
+        columns=list('abcde')
+    )
 
-with st.form('example form') as f:
-    st.header('Example Form')
-    response = AgGrid(df_template, editable=True, fit_columns_on_grid_load=True)
-    st.form_submit_button()
+    with st.form('example form') as f:
+        st.header('Example Form')
+        response = AgGrid(df_template, editable=True, fit_columns_on_grid_load=True)
+        st.form_submit_button()
 
-st.write(response['data'])  
+    st.write(response['data'])  
