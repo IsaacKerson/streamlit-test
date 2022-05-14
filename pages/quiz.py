@@ -87,5 +87,5 @@ def app():
                 with st.form("sentence_completion"):
                     for q in questions:
                         st.text_input(f'{q[0] + 1}. {q[3]}', key=q[0], placeholder="Type answer here")
-                        st.form_submit_button(label="Submit", on_click=form_callback, args=(questions,))
+                    st.form_submit_button(label="Submit", on_click=form_callback, args=(questions,))
                         
