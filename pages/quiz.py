@@ -92,3 +92,4 @@ def app():
                         st.write("Submitted")
                         del st.session_state.tags
                         del st.session_state.num_q
+                        del st.session_state.form_submit

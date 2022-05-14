@@ -19,21 +19,21 @@ def check_answer(item, answer):
   return item == answer
 
 def clean_string(string):
-            return re.sub('[^0-9a-zA-Z\s,]+', '', string)
+  return re.sub('[^0-9a-zA-Z\s,]+', '', string)
 
 def split_string(string, split_on = ","):
-    return [x.strip().upper() for x in string.split(split_on)]
+  return [x.strip().upper() for x in string.split(split_on)]
 
 def make_subquery(terms, column = 'tags', operator = 'AND'):
-    return f' {operator} '.join([f"{column} LIKE '%{x}%'" for x in terms if len(x) > 0])
+  return f' {operator} '.join([f"{column} LIKE '%{x}%'" for x in terms if len(x) > 0])
 
 def make_query(subquery, limit = 10):
-    return f"""SELECT * FROM vocab WHERE {subquery} ORDER BY RANDOM() LIMIT {str(limit)}"""
+  return f"""SELECT * FROM vocab WHERE {subquery} ORDER BY RANDOM() LIMIT {str(limit)}"""
 
 def db_connect(database):
-    conn = sqlite3.connect(database)
-    c = conn.cursor()
-    return c, conn
+  conn = sqlite3.connect(database)
+  c = conn.cursor()
+  return c, conn
 
 def chk_conn(conn):
   try:

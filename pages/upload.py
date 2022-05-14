@@ -2,6 +2,8 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 
+from pages.utils import *
+
 # @st.cache
 def app():
     st.markdown("## Upload Data")
