@@ -5,7 +5,7 @@ import datetime
 
 # Custom imports
 from multipage import MultiPage
-from pages import quiz, upload, view, grid, quiz_new
+from pages import quiz, upload, view, grid
 
 # Create an instance of the app 
 app = MultiPage()
