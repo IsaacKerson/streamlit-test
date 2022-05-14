@@ -23,14 +23,10 @@ def app():
             print(e)
             data = pd.read_excel(uploaded_file)
             data.to_csv('data.csv', index=False)
-
+  
+    if st.button("Load Data"):
+        st.markup("### Data")
         with open("data.csv", "r") as f:
             reader = csv.reader(f, delimiter=",")
             for i, line in enumerate(reader):
-                st.write(f"{i}: {line}")
-    
-    # if st.button("Load Data"):
-    #     st.markdown("### Uploaded Data")
-    #     st.write("\n")
-    #     st.dataframe(data)
-    #     # data.to_csv('data/main_data.csv', index=False)
+                st.write(f"{i}: {line[0]}")
