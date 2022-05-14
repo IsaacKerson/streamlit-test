@@ -52,8 +52,13 @@ def app():
         tag_string = st.text_input('Comma seperated tags. (Max 3)')
         num_q = st.selectbox('How many question do you want?', [5,10,15,20])
         
+        def split_string(string, split_on = ","):
+            return [x.strip().upper() for x in string.split(split_on)]
+        
+        terms = split_string(tag_string)
+        
         if tag_string:
-            st.write(f'{tag_string}, {num_q}')
+            st.write(f'{terms}, {num_q}')
 
         # unit = st.session_state.unit
         # num_q = st.session_state.num_q
