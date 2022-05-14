@@ -14,13 +14,17 @@ def app():
     DATABASE = os.path.join(BASE_DIR, DATABASE_NAME)
 
     def form_callback(questions):
+
         st.session_state.form_submit = True
+        
         num_correct = 0
         session_id = random_session_id()
         student_id = 'UKWN'
         uct_iso = datetime.datetime.utcnow().isoformat()
+        insert_tups = []
+
         st.title("Feedback")
-        c, conn = db_connect(DATABASE)
+
         for idx, items in enumerate(questions):
             answer = st.session_state[idx]
             correct_str = 'incorrect'
@@ -36,10 +40,14 @@ def app():
             st.write(f"Answer: {items[1]}")
             st.write(f"Your answer: {answer}")
             st.write(f"You are {correct_str}.")
-            insert_tup = (student_id, session_id, uct_iso, items[1], items[2], answer, correct_int, )
-            c.execute("INSERT INTO responses VALUES (?, ?, ?, ?, ?, ?, ?)", insert_tup)
+            insert_tup = (student_id, session_id, uct_iso, items[1], items[2], answer, correct_int )
+            insert_tups.append(insert_tup)
+
+        c, conn = db_connect(DATABASE)
+        c.executemany("INSERT INTO responses VALUES (?, ?, ?, ?, ?, ?, ?)", insert_tups)
         conn.commit()
         conn.close()
+
         score_val = 100 * num_correct / len(questions)
         st.metric(label="Final Score", value=f"{score_val}%")
         
