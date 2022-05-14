@@ -75,8 +75,7 @@ def app():
         if tag_string:
 
             st.markdown(f"## QUIZ: {' '.join(terms)}")
-            st.write("Complete the sentences with the words from the word bank.")
-
+           
             questions = []
             word_bank = []
 
@@ -91,6 +90,8 @@ def app():
             st.markdown("### Word Bank")
             random.shuffle(word_bank)
             st.table(chunker(word_bank, 5))
+            st.markdown("### Questions")
+            st.write("Complete the sentences with the words from the word bank.")
 
             with st.form("sentence_completion"):
                 for q in questions:
