@@ -29,8 +29,14 @@ def app():
         col1, col2, col3 = st.columns(3)
         with open("data.csv", "r") as f:
             reader = csv.reader(f, delimiter=",")
+            col1, col2, col3, col4 = st.columns(4)
+            col1.markdown("*#*")
+            col2.markdown(f"*{reader[0][0]}*")
+            col3.markdown(f"*{reader[0][1]}*")
+            col4.markdown(f"*{reader[0][2]}*")
             for i, line in enumerate(reader):
-                col1, col2, col3 = st.columns(3)
-                col1.write(f"{line[0]}")
-                col2.write(f"{line[2]}")
-                col3.write(f"{line[3]}")
+                col1, col2, col3, col4 = st.columns(4)
+                col1.write(f"{i}")
+                col2.write(f"{line[0]}")
+                col3.write(f"{line[1]}")
+                col4.write(f"{line[2]}")
