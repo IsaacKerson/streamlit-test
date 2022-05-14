@@ -14,7 +14,6 @@ app = MultiPage()
 st.markdown("# Quiz Maker")
 
 # Add all your application here
-app.add_page("New Quiz", quiz_new.app)
 app.add_page("Quiz", quiz.app)
 app.add_page("Upload", upload.app)
 app.add_page("View", view.app)

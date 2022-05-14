@@ -5,11 +5,13 @@ import random
 import datetime
 
 # Custom imports
-from pages.utils import add_blanks, chunker, random_session_id, check_answer, db_connect
+from pages.utils import *
 
 def app():
+
+    DATABASE_NAME = 'quiz_maker.db'
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    DATABASE = os.path.join(BASE_DIR, 'vocabulary_current.db')
+    DATABASE = os.path.join(BASE_DIR, DATABASE_NAME)
 
     def form_callback(questions):
         st.session_state.form_submit = True
@@ -41,45 +43,52 @@ def app():
         score_val = 100 * num_correct / len(questions)
         st.metric(label="Final Score", value=f"{score_val}%")
         
-    if "form_submit" not in st.session_state: 
+    if "form_submit" not in st.session_state:
+
         c, conn = db_connect(DATABASE)
 
-        units_list = []
-        for item in c.execute("SELECT DISTINCT unit FROM vocab"):
-            units_list.append(item[0])
-
-        st.title("Sentence Completion")
-        st.selectbox('Select a unit.', units_list, key='unit')
+        st.markdown("# Sentence Completion")
+        st.text_input('Comma seperated tags. (Maximum 3)', key='tags')
         st.selectbox('How many question do you want?', [5,10,15,20], key='num_q')
-
-        unit = st.session_state.unit
-        num_q = st.session_state.num_q
-        input_tup = (unit, num_q)
-
-        st.header(unit)
-
-        st.write("Complete the sentences with the words from the word bank.")
-
-        questions = []
-        word_bank = []
-
-        query = "SELECT * FROM vocab WHERE unit = ? ORDER BY RANDOM() LIMIT ?"
-
-        for idx, item in enumerate(c.execute(query, input_tup)):
-            word = item[2]
-            word_bank.append(word)
-            sentence = item[4]
-            questions.append((idx, word, sentence, add_blanks(word, sentence)))
-
-        st.subheader("Word Bank")
-        random.shuffle(word_bank)
-        st.table(chunker(word_bank, 5))
-
-        with st.form("sentence_completion"):
-            for q in questions:
-                st.text_input(f'{q[0] + 1}. {q[3]}', key=q[0], placeholder="Type answer here")
-            submitted = st.form_submit_button(label="Submit", on_click=form_callback, args=(questions,))
-            if submitted:
-                st.write("Submitted")
-        conn.close()
         
+        tag_string = st.session_state.tags
+        num_q = st.session_state.num_q
+        
+        clean_tags = clean_string(tag_string)
+        terms = split_string(clean_tags)
+        subquery = make_subquery(terms)
+        query = make_query(subquery, limit = num_q)
+
+        if tag_string:
+
+            questions = []
+            word_bank = []
+
+            for idx, item in enumerate(c.execute(query)):
+                word = item[0]
+                word_bank.append(word)
+                sentence = item[2]
+                questions.append((idx, word, sentence, add_blanks(word, sentence)))
+            
+            conn.close()
+            
+            if len(questions) == 0:
+                st.warning("There are no tags that matched that query.")
+            elif len(questions) < num_q:
+                st.warning(f"There are only {len(questions)} with that tag.")
+            else:
+                st.markdown(f"## QUIZ: {' '.join(terms)}")
+                st.markdown("### Word Bank")
+                random.shuffle(word_bank)
+                st.table(chunker(word_bank, 5))
+                st.markdown("### Questions")
+                st.write("Complete the sentences with the words from the word bank.")
+
+                with st.form("sentence_completion"):
+                    for q in questions:
+                        st.text_input(f'{q[0] + 1}. {q[3]}', key=q[0], placeholder="Type answer here")
+                    submitted = st.form_submit_button(label="Submit", on_click=form_callback, args=(questions,))
+                    if submitted:
+                        st.write("Submitted")
+                        del st.session_state.tags
+                        del st.session_state.num_q
