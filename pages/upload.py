@@ -25,7 +25,7 @@ def app():
             data.to_csv('data.csv', index=False)
   
     if st.button("Load Data"):
-        st.markup("### Data")
+        st.markdown("### Data")
         with open("data.csv", "r") as f:
             reader = csv.reader(f, delimiter=",")
             for i, line in enumerate(reader):
