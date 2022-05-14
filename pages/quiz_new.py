@@ -3,6 +3,7 @@ import os.path
 import sqlite3
 import random
 import datetime
+import re
 
 # Custom imports
 from pages.utils import add_blanks, chunker, random_session_id, check_answer, db_connect, chk_conn
@@ -54,16 +55,20 @@ def app():
         tag_string = st.session_state.tags
         num_q = st.session_state.num_q
         
+        def clean_string(string):
+            return re.sub('[^0-9a-zA-Z\s,]+', '', string)
+
         def split_string(string, split_on = ","):
             return [x.strip().upper() for x in string.split(split_on)]
         
         def make_subquery(terms, column = 'tags', operator = 'AND'):
-            return f' {operator} '.join([f"{column} LIKE '%{x}%'" for x in terms])
+            return f' {operator} '.join([f"{column} LIKE '%{x}%'" for x in terms if len(x) > 0])
         
         def make_query(subquery, limit = 10):
-            return f"""SELECT * FROM vocab WHERE {subquery} LIMIT {str(limit)}"""
+            return f"""SELECT * FROM vocab WHERE {subquery} ORDER BY RANDOM() LIMIT {str(limit)}"""
 
-        terms = split_string(tag_string)
+        clean_tags = clean_string(tag_string)
+        terms = split_string(clean_tags)
         subquery = make_subquery(terms)
         query = make_query(subquery, limit = num_q)
 
