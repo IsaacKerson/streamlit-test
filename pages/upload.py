@@ -26,19 +26,18 @@ def app():
   
     if st.button("Load Data"):
         st.markdown("### Data")
-        col1, col2, col3 = st.columns(3)
+        form = st.form("data_check_form")
         with open("data.csv", "r") as f:
             reader = csv.reader(f, delimiter=",")
             for i, line in enumerate(reader):
                 if i == 0:
-                    col1, col2, col3, col4 = st.columns(4)
-                    col1.markdown("**#**")
-                    col2.markdown(f"**{line[0]}**")
-                    col3.markdown(f"**{line[1]}**")
-                    col4.markdown(f"**{line[2]}**")
+                    pass
                 else:
-                    col1, col2, col3, col4 = st.columns(4)
-                    col1.write(f"{i}")
-                    col2.write(f"{line[0]}")
-                    col3.write(f"{line[1]}")
-                    col4.write(f"{line[2]}")
+                    form.markdown(f"### {i}")
+                    form.text_input("Word or Phrase", f"{line[0]}", key=f"word_{i}")
+                    form.text_input("Definition", f"{line[1]}", key=f"def_{i}")
+                    form.text_input("Example", f"{line[2]}", key=f"ex_{i}")
+                    form.text_input("Tags", f"{line[3]}", key=f"tag_{i}")
+        form.form_submit_button("Submit")
+# st.text_input(f'{q[0] + 1}. {q[3]}', key=q[0], placeholder="Type answer here")
+# st.form_submit_button(label="Submit", on_click=form_callback, args=(questions,))
