@@ -46,7 +46,6 @@ def app():
     if "form_submit" not in st.session_state:
 
         c, conn = db_connect(DATABASE)
-        st.write(chk_conn(conn))
 
         st.markdown("# Sentence Completion")
         tag_string = st.text_input('Comma seperated tags. (Max 3)')
@@ -55,10 +54,19 @@ def app():
         def split_string(string, split_on = ","):
             return [x.strip().upper() for x in string.split(split_on)]
         
-        terms = split_string(tag_string)
+        def make_subquery(terms, column = 'tags', operator = 'AND'):
+            return f' {operator} '.join([f"{column} LIKE '%{x}%'" for x in terms])
         
+        def make_query(subquery, limit = 10):
+            return f"""SELECT * FROM vocab WHERE {subquery} LIMIT {str(limit)}"""
+
+        terms = split_string(tag_string)
+        subquery = make_subquery(terms)
+        query = make_query(subquery, limit = num_q)
+
         if tag_string:
-            st.write(f'{terms}, {num_q}')
+            for idx, item in enumerate(c.execute(query)):
+                st.write(f'{idx}, {item}')
 
         # unit = st.session_state.unit
         # num_q = st.session_state.num_q
