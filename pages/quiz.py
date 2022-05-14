@@ -20,6 +20,7 @@ def app():
         student_id = 'UKWN'
         uct_iso = datetime.datetime.utcnow().isoformat()
         st.title("Feedback")
+        c, conn = db_connect(DATABASE)
         for idx, items in enumerate(questions):
             answer = st.session_state[idx]
             correct_str = 'incorrect'
@@ -36,7 +37,6 @@ def app():
             st.write(f"Your answer: {answer}")
             st.write(f"You are {correct_str}.")
             insert_tup = (student_id, session_id, uct_iso, items[1], items[2], answer, correct_int, )
-            c, conn = db_connect(DATABASE)
             c.execute("INSERT INTO responses VALUES (?, ?, ?, ?, ?, ?, ?)", insert_tup)
         conn.commit()
         conn.close()
