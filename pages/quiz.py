@@ -38,7 +38,7 @@ def app():
             insert_tup = (student_id, session_id, uct_iso, items[1], items[2], answer, correct_int, )
             c, conn = db_connect(DATABASE)
             c.execute("INSERT INTO responses VALUES (?, ?, ?, ?, ?, ?, ?)", insert_tup)
-            conn.commit()
+        conn.commit()
         conn.close()
         score_val = 100 * num_correct / len(questions)
         st.metric(label="Final Score", value=f"{score_val}%")
