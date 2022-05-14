@@ -66,7 +66,7 @@ def app():
         
         def make_query(subquery, limit = 10):
             return f"""SELECT * FROM vocab WHERE {subquery} ORDER BY RANDOM() LIMIT {str(limit)}"""
-Touchstone 1, Unit 1
+
         clean_tags = clean_string(tag_string)
         terms = split_string(clean_tags)
         subquery = make_subquery(terms)
