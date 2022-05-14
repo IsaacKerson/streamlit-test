@@ -6,6 +6,10 @@ import sqlite3
 from pages.utils import db_connect
 
 def app():
+    
+    '''delete form_submit to run quiz maker on return to page'''
+    del st.session_state.form_submit
+    
     st.markdown("## View Data")
 
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))

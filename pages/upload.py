@@ -6,6 +6,9 @@ from pages.utils import *
 
 # @st.cache
 def app():
+    '''delete form_submit to run quiz maker on return to page'''
+    del st.session_state.form_submit
+
     st.markdown("## Upload Data")
 
     # Code to read a single file 
