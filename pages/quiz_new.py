@@ -48,8 +48,11 @@ def app():
         c, conn = db_connect(DATABASE)
 
         st.markdown("# Sentence Completion")
-        tag_string = st.text_input('Comma seperated tags. (Max 3)')
-        num_q = st.selectbox('How many question do you want?', [5,10,15,20])
+        st.text_input('Comma seperated tags. (Maximum 3)', key='tags')
+        st.selectbox('How many question do you want?', [5,10,15,20], key='num_q')
+        
+        tag_string = st.session_state.tags
+        num_q = st.session_state.num_q
         
         def split_string(string, split_on = ","):
             return [x.strip().upper() for x in string.split(split_on)]
