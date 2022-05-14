@@ -33,9 +33,9 @@ def app():
                 if i == 0:
                     col1, col2, col3, col4 = st.columns(4)
                     col1.markdown("**#**")
-                    col2.markdown(f"**{reader[0][0]}**")
-                    col3.markdown(f"**{reader[0][1]}**")
-                    col4.markdown(f"**{reader[0][2]}**")
+                    col2.markdown(f"**{line[0]}**")
+                    col3.markdown(f"**{line[1]}**")
+                    col4.markdown(f"**{line[2]}**")
                 else:
                     col1, col2, col3, col4 = st.columns(4)
                     col1.write(f"{i}")
