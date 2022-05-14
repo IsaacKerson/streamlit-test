@@ -43,16 +43,17 @@ def app():
         score_val = 100 * num_correct / len(questions)
         st.metric(label="Final Score", value=f"{score_val}%")
         
-    if "form_submit" not in st.session_state: 
+    if "form_submit" not in st.session_state:
+
         c, conn = db_connect(DATABASE)
         st.write(chk_conn(conn))
-        # units_list = []
-        # for item in c.execute("SELECT DISTINCT unit FROM vocab"):
-        #     units_list.append(item[0])
 
-        # st.title("Sentence Completion")
-        # st.selectbox('Select a unit.', units_list, key='unit')
-        # st.selectbox('How many question do you want?', [5,10,15,20], key='num_q')
+        st.markdown("# Sentence Completion")
+        tag_string = st.text_input('Comma seperated tags. (Max 3)')
+        num_q = st.selectbox('How many question do you want?', [5,10,15,20])
+        
+        if tag_string:
+            st.write(f'{tag_string}, {num_q}')
 
         # unit = st.session_state.unit
         # num_q = st.session_state.num_q
