@@ -14,7 +14,6 @@ def app():
     DATABASE = os.path.join(BASE_DIR, DATABASE_NAME)
 
     def form_callback(questions):
-        st.session_state.form_submit = True
         num_correct = 0
         session_id = random_session_id()
         student_id = 'UKWN'
@@ -93,3 +92,4 @@ def app():
                         del st.session_state.tags
                         del st.session_state.num_q
                         del st.session_state.form_submit
+                        
