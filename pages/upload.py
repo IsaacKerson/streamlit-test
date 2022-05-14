@@ -26,7 +26,13 @@ def app():
   
     if st.button("Load Data"):
         st.markdown("### Data")
+        col1, col2, col3 = st.columns(3)
         with open("data.csv", "r") as f:
             reader = csv.reader(f, delimiter=",")
             for i, line in enumerate(reader):
-                st.write(f"{i}: {line[0]}")
+                with col1:
+                    st.write(f"{line[0]}")
+                with col1:
+                    st.write(f"{line[2]}")
+                with col1:
+                    st.write(f"{line[3]}")
