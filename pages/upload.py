@@ -30,6 +30,7 @@ def app():
         with open("data.csv", "r") as f:
             reader = csv.reader(f, delimiter=",")
             for i, line in enumerate(reader):
+                col1, col2, col3 = st.columns(3)
                 col1.write(f"{line[0]}")
                 col2.write(f"{line[2]}")
                 col3.write(f"{line[3]}")
