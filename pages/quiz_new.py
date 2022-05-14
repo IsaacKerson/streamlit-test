@@ -5,11 +5,13 @@ import random
 import datetime
 
 # Custom imports
-from pages.utils import add_blanks, chunker, random_session_id, check_answer, db_connect
+from pages.utils import add_blanks, chunker, random_session_id, check_answer, db_connect, ch
 
 def app():
+
+    DATABASE_NAME = 'quiz_maker.db'
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    DATABASE = os.path.join(BASE_DIR, 'vocabulary_current.db')
+    DATABASE = os.path.join(BASE_DIR, DATABASE_NAME)
 
     def form_callback(questions):
         st.session_state.form_submit = True
@@ -43,43 +45,43 @@ def app():
         
     if "form_submit" not in st.session_state: 
         c, conn = db_connect(DATABASE)
+        st.write(chk_conn(conn))
+        # units_list = []
+        # for item in c.execute("SELECT DISTINCT unit FROM vocab"):
+        #     units_list.append(item[0])
 
-        units_list = []
-        for item in c.execute("SELECT DISTINCT unit FROM vocab"):
-            units_list.append(item[0])
+        # st.title("Sentence Completion")
+        # st.selectbox('Select a unit.', units_list, key='unit')
+        # st.selectbox('How many question do you want?', [5,10,15,20], key='num_q')
 
-        st.title("Sentence Completion")
-        st.selectbox('Select a unit.', units_list, key='unit')
-        st.selectbox('How many question do you want?', [5,10,15,20], key='num_q')
+        # unit = st.session_state.unit
+        # num_q = st.session_state.num_q
+        # input_tup = (unit, num_q)
 
-        unit = st.session_state.unit
-        num_q = st.session_state.num_q
-        input_tup = (unit, num_q)
+        # st.header(unit)
 
-        st.header(unit)
+        # st.write("Complete the sentences with the words from the word bank.")
 
-        st.write("Complete the sentences with the words from the word bank.")
+        # questions = []
+        # word_bank = []
 
-        questions = []
-        word_bank = []
+        # query = "SELECT * FROM vocab WHERE unit = ? ORDER BY RANDOM() LIMIT ?"
 
-        query = "SELECT * FROM vocab WHERE unit = ? ORDER BY RANDOM() LIMIT ?"
+        # for idx, item in enumerate(c.execute(query, input_tup)):
+        #     word = item[2]
+        #     word_bank.append(word)
+        #     sentence = item[4]
+        #     questions.append((idx, word, sentence, add_blanks(word, sentence)))
 
-        for idx, item in enumerate(c.execute(query, input_tup)):
-            word = item[2]
-            word_bank.append(word)
-            sentence = item[4]
-            questions.append((idx, word, sentence, add_blanks(word, sentence)))
+        # st.subheader("Word Bank")
+        # random.shuffle(word_bank)
+        # st.table(chunker(word_bank, 5))
 
-        st.subheader("Word Bank")
-        random.shuffle(word_bank)
-        st.table(chunker(word_bank, 5))
-
-        with st.form("sentence_completion"):
-            for q in questions:
-                st.text_input(f'{q[0] + 1}. {q[3]}', key=q[0], placeholder="Type answer here")
-            submitted = st.form_submit_button(label="Submit", on_click=form_callback, args=(questions,))
-            if submitted:
-                st.write("Submitted")
-        conn.close()
+        # with st.form("sentence_completion"):
+        #     for q in questions:
+        #         st.text_input(f'{q[0] + 1}. {q[3]}', key=q[0], placeholder="Type answer here")
+        #     submitted = st.form_submit_button(label="Submit", on_click=form_callback, args=(questions,))
+        #     if submitted:
+        #         st.write("Submitted")
+        # conn.close()
         
