@@ -6,10 +6,6 @@ import pandas as pd
 def app():
     st.markdown("## Upload Data")
 
-    # Upload the dataset and save as csv
-    st.markdown("### Upload a csv file for analysis.") 
-    st.write("\n")
-
     # Code to read a single file 
     uploaded_file = st.file_uploader("Choose a file", type = ['csv', 'xlsx'])
     if uploaded_file is not None:
@@ -20,7 +16,6 @@ def app():
             data = pd.read_excel(uploaded_file)
     
     if st.button("Load Data"):
-        
         st.markdown("### Uploaded Data")
         st.write("\n")
         st.dataframe(data)
