@@ -76,7 +76,7 @@ def app():
             # for idx, item in enumerate(c.execute(query)):
             #     st.write(f'{idx}, {item}')
 
-            st.markdown(f'## {terms}')
+            st.markdown(f'## QUIZ: {' '.join(terms)}')
             st.write("Complete the sentences with the words from the word bank.")
 
         # questions = []
