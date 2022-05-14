@@ -8,7 +8,7 @@ from pages.utils import *
 def app():
 
     '''delete form_submit to run quiz maker on return to page'''
-    if form_submit in st.session_state:
+    if "form_submit" in st.session_state.keys():
         del st.session_state.form_submit
 
     st.markdown("## Upload Data")
