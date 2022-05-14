@@ -66,7 +66,7 @@ def app():
         
         def make_query(subquery, limit = 10):
             return f"""SELECT * FROM vocab WHERE {subquery} ORDER BY RANDOM() LIMIT {str(limit)}"""
-
+Touchstone 1, Unit 1
         clean_tags = clean_string(tag_string)
         terms = split_string(clean_tags)
         subquery = make_subquery(terms)
@@ -79,8 +79,6 @@ def app():
             questions = []
             word_bank = []
 
-            st.write(c.execute(query))
-
             for idx, item in enumerate(c.execute(query)):
                 word = item[0]
                 word_bank.append(word)
@@ -89,6 +87,8 @@ def app():
             
             conn.close()
             
+            st.write(questions)
+
             st.markdown("### Word Bank")
             random.shuffle(word_bank)
             st.table(chunker(word_bank, 5))
