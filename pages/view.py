@@ -8,7 +8,8 @@ from pages.utils import db_connect
 def app():
     
     '''delete form_submit to run quiz maker on return to page'''
-    del st.session_state.form_submit
+    if st.session_state.form_submit:
+        del st.session_state.form_submit
     
     st.markdown("## View Data")
 
