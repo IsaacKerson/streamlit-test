@@ -54,18 +54,6 @@ def app():
         tag_string = st.session_state.tags
         num_q = st.session_state.num_q
         
-        # def clean_string(string):
-        #     return re.sub('[^0-9a-zA-Z\s,]+', '', string)
-
-        # def split_string(string, split_on = ","):
-        #     return [x.strip().upper() for x in string.split(split_on)]
-        
-        # def make_subquery(terms, column = 'tags', operator = 'AND'):
-        #     return f' {operator} '.join([f"{column} LIKE '%{x}%'" for x in terms if len(x) > 0])
-        
-        # def make_query(subquery, limit = 10):
-        #     return f"""SELECT * FROM vocab WHERE {subquery} ORDER BY RANDOM() LIMIT {str(limit)}"""
-
         clean_tags = clean_string(tag_string)
         terms = split_string(clean_tags)
         subquery = make_subquery(terms)
@@ -102,3 +90,5 @@ def app():
                     submitted = st.form_submit_button(label="Submit", on_click=form_callback, args=(questions,))
                     if submitted:
                         st.write("Submitted")
+                        del st.session_state.tags
+                        del st.session_state.num_q
