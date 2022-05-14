@@ -5,7 +5,7 @@ import random
 import datetime
 
 # Custom imports
-from pages.utils import add_blanks, chunker, random_session_id, check_answer, db_connect, ch
+from pages.utils import add_blanks, chunker, random_session_id, check_answer, db_connect, chk_conn
 
 def app():
 
