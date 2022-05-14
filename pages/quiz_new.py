@@ -79,6 +79,8 @@ def app():
             questions = []
             word_bank = []
 
+            st.write(c.execute(query))
+
             for idx, item in enumerate(c.execute(query)):
                 word = item[0]
                 word_bank.append(word)
