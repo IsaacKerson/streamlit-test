@@ -73,16 +73,11 @@ def app():
         query = make_query(subquery, limit = num_q)
 
         if tag_string:
-            for idx, item in enumerate(c.execute(query)):
-                st.write(f'{idx}, {item}')
+            # for idx, item in enumerate(c.execute(query)):
+            #     st.write(f'{idx}, {item}')
 
-        # unit = st.session_state.unit
-        # num_q = st.session_state.num_q
-        # input_tup = (unit, num_q)
-
-        # st.header(unit)
-
-        # st.write("Complete the sentences with the words from the word bank.")
+        st.markdown(f'## {terms}')
+        st.write("Complete the sentences with the words from the word bank.")
 
         # questions = []
         # word_bank = []
