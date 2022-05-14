@@ -79,26 +79,24 @@ def app():
             st.markdown(f"## QUIZ: {' '.join(terms)}")
             st.write("Complete the sentences with the words from the word bank.")
 
-        # questions = []
-        # word_bank = []
+            questions = []
+            word_bank = []
 
-        # query = "SELECT * FROM vocab WHERE unit = ? ORDER BY RANDOM() LIMIT ?"
+            for idx, item in enumerate(c.execute(query)):
+                word = item[0]
+                word_bank.append(word)
+                sentence = item[2]
+                questions.append((idx, word, sentence, add_blanks(word, sentence)))
 
-        # for idx, item in enumerate(c.execute(query, input_tup)):
-        #     word = item[2]
-        #     word_bank.append(word)
-        #     sentence = item[4]
-        #     questions.append((idx, word, sentence, add_blanks(word, sentence)))
+            st.subheader("Word Bank")
+            random.shuffle(word_bank)
+            st.table(chunker(word_bank, 5))
 
-        # st.subheader("Word Bank")
-        # random.shuffle(word_bank)
-        # st.table(chunker(word_bank, 5))
-
-        # with st.form("sentence_completion"):
-        #     for q in questions:
-        #         st.text_input(f'{q[0] + 1}. {q[3]}', key=q[0], placeholder="Type answer here")
-        #     submitted = st.form_submit_button(label="Submit", on_click=form_callback, args=(questions,))
-        #     if submitted:
-        #         st.write("Submitted")
-        # conn.close()
+            # with st.form("sentence_completion"):
+            #     for q in questions:
+            #         st.text_input(f'{q[0] + 1}. {q[3]}', key=q[0], placeholder="Type answer here")
+            #     submitted = st.form_submit_button(label="Submit", on_click=form_callback, args=(questions,))
+            #     if submitted:
+            #         st.write("Submitted")
+            # conn.close()
         
