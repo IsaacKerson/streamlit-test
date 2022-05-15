@@ -33,4 +33,4 @@ def app():
             for idx, item in enumerate(c.execute(query)):
                 st.write(f'{idx}: {item}')
         except Exception as e:
-            st.write("Query failed: " + str(e).capitalize())
+            st.write("Query failed. " + str(e).capitalize())

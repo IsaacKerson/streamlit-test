@@ -5,7 +5,7 @@ import datetime
 
 # Custom imports
 from multipage import MultiPage
-from pages import quiz, upload, view
+from pages import quiz, upload, view, join
 
 # Create an instance of the app 
 app = MultiPage()
@@ -15,6 +15,7 @@ st.markdown("# Quiz Maker")
 
 # Add all your application here
 app.add_page("Quiz", quiz.app)
+app.add_page("Join", join.app)
 app.add_page("Upload", upload.app)
 app.add_page("View", view.app)
 
