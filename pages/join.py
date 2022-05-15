@@ -7,6 +7,9 @@ import datetime
 from pages.utils import *
 
 def app():
+
+    DATABASE = db_path('quiz_maker.db')
+
     st.markdown("## Join")
 
     with st.form("join_form"):

@@ -13,9 +13,7 @@ def app():
     if "form_upload" in st.session_state.keys():
         del st.session_state.form_upload
 
-    DATABASE_NAME = 'quiz_maker.db'
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    DATABASE = os.path.join(BASE_DIR, DATABASE_NAME)
+    DATABASE = db_path('quiz_maker.db')
 
     def form_callback(questions):
 

@@ -30,6 +30,11 @@ def make_subquery(terms, column = 'tags', operator = 'AND'):
 def make_query(subquery, limit = 10):
   return f"""SELECT * FROM vocab WHERE {subquery} ORDER BY RANDOM() LIMIT {str(limit)}"""
 
+def db_path(database):
+    DATABASE_NAME = 'quiz_maker.db'
+    dir = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(dir, database)
+
 def db_connect(database):
   conn = sqlite3.connect(database)
   c = conn.cursor()
