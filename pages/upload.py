@@ -13,7 +13,8 @@ def app():
     
     def upload_callback(data):
         st.session_state.form_upload = True
-        st.write(data)
+        for k, v in st.session_state.items():
+            st.write(f"{k}: {v}")
 
     if "form_upload" not in st.session_state:
         st.markdown("## Upload Data")
@@ -43,6 +44,6 @@ def app():
                         form.text_input("Definition", f"{line[1]}", key=f"def_{i}")
                         form.text_input("Example", f"{line[2]}", key=f"ex_{i}")
                         form.text_input("Tags", f"{line[3]}", key=f"tag_{i}")
-            form.form_submit_button("Confirm", on_click=upload_callback, args=(data,))
+            form.form_submit_button("Confirm", on_click=upload_callback)
     # st.text_input(f'{q[0] + 1}. {q[3]}', key=q[0], placeholder="Type answer here")
     # st.form_submit_button(label="Submit", on_click=form_callback, args=(questions,))
