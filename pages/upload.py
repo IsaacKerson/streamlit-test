@@ -11,7 +11,7 @@ def app():
     if "form_submit" in st.session_state.keys():
         del st.session_state.form_submit
     
-    def upload_callback(data):
+    def upload_callback():
         st.session_state.form_upload = True
         for k, v in st.session_state.items():
             st.write(f"{k}: {v}")
