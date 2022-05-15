@@ -14,13 +14,20 @@ def app():
     def upload_callback(num_items):
         st.session_state.form_upload = True
         
-        input_tups = []
+        DATABASE_NAME = 'quiz_maker.db'
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        DATABASE = os.path.join(BASE_DIR, DATABASE_NAME)
+
+        insert_tups = []
 
         for idx in range(1, num_items + 1):
-            input_tups.append((st.session_state[f'word_{str(idx)}'], st.session_state[f'def_{str(idx)}'], \
+            insert_tups.append((st.session_state[f'word_{str(idx)}'], st.session_state[f'def_{str(idx)}'], \
                 st.session_state[f'ex_{str(idx)}'], st.session_state[f'tag_{str(idx)}']))
 
-        st.write(input_tups)
+        c, conn = db_connect(DATABASE)
+        c.executemany("INSERT INTO vocab VALUES (?, ?, ?, ?)", insert_tups)
+        conn.commit()
+        conn.close()
 
     if "form_upload" not in st.session_state:
         st.markdown("## Upload Data")
