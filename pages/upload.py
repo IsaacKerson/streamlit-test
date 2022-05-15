@@ -17,7 +17,7 @@ def app():
         input_tups = []
 
         for idx in range(num_items):
-            st.write(st.session_state[f'word_{str(idx)}'])
+            st.write(st.session_state[f'word_{str(idx+1)}'])
 
     if "form_upload" not in st.session_state:
         st.markdown("## Upload Data")
