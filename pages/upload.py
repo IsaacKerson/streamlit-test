@@ -45,7 +45,7 @@ def app():
     
         if st.button("Load Data"):
             if not os.path.exists("data.csv"):
-                st.warnining("Upload a file to load data.")
+                st.warning("Upload a file to load data.")
             else:
                 st.markdown("### Confirm the data is correct.")
                 num_items = 0
