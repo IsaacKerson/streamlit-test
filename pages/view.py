@@ -20,6 +20,11 @@ def app():
 
     c, conn = db_connect(DATABASE)
 
+    size_query = "SELECT page_count * page_size as size FROM pragma_page_count(), pragma_page_size()"
+    
+    for item in c.execute(size_query):
+        st.write(item)
+
     query = st.text_input("Query", placeholder="Type query here")
 
     if len(query) > 1:
