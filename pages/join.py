@@ -14,6 +14,8 @@ with st.form("join_form"):
     user_name = st.text_input("User Name")
     password1 = st.text_intput("Password", type="password")
     password2 = st.text_input("Confirm Password", type="password")
+    
     submitted = st.form_submit_button("Submit")
-if password1.strip() != password2.strip():
+
+if submitted and password1.strip() != password2.strip():
     st.warning("The passwords do not match.")
