@@ -49,6 +49,6 @@ def app():
                         form.text_input("Definition", f"{line[1]}", key=f"def_{i}")
                         form.text_input("Example", f"{line[2]}", key=f"ex_{i}")
                         form.text_input("Tags", f"{line[3]}", key=f"tag_{i}")
-            form.form_submit_button("Confirm", on_click=upload_callback, args=(num_items))
+            form.form_submit_button("Confirm", on_click=upload_callback, args=(num_items,))
     # st.text_input(f'{q[0] + 1}. {q[3]}', key=q[0], placeholder="Type answer here")
     # st.form_submit_button(label="Submit", on_click=form_callback, args=(questions,))
