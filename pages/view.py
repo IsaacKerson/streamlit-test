@@ -32,5 +32,5 @@ def app():
         try:
             for idx, item in enumerate(c.execute(query)):
                 st.write(f'{idx}: {item}')
-        except Exception as error:
-            st.write(error)
+        except:
+            st.write("Query returned an error.")
