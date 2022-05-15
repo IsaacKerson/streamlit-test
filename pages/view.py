@@ -10,6 +10,8 @@ def app():
     '''delete form_submit to run quiz maker on return to page'''
     if "form_submit" in st.session_state.keys():
         del st.session_state.form_submit
+    if "form_upload" in st.session_state.keys():
+        del st.session_state.form_upload
     
     st.markdown("## View Data")
 
