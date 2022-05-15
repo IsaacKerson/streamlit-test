@@ -22,8 +22,7 @@ def app():
 
     size_query = "SELECT page_count * page_size as size FROM pragma_page_count(), pragma_page_size()"
     
-    for item in c.execute(size_query):
-        st.write(item)
+    st.markdown(f'#### Database size: {c.fetchone(size_query)[1]}')
 
     query = st.text_input("Query", placeholder="Type query here")
 
