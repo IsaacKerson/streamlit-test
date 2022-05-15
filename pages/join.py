@@ -1,6 +1,6 @@
 import streamlit as st
+import streamlit_authenticator as stauth
 import sqlite3
-import random
 import datetime
 
 # Custom imports
@@ -35,7 +35,15 @@ def app():
 
     if submitted and password1.strip() != password2.strip():
         st.warning("The passwords do not match.")
-    if user_name in usernames:
+    elif user_name in usernames:
         st.warning("This user name already exists.")
-    if email in emails:
+    elif email in emails:
         st.warning("This email is already being used.")
+    else:
+        uct_iso = datetime.datetime.utcnow().isoformat()
+        hashed_password = stauth.Hasher(password1).generate()
+        query = "INSERT INTO users(uct_iso, firstname, lastname, username, email, hashed_password) VALUES(?, ?, ?, ?, ?, ?)"
+        c.execute(query, (uct_iso, first_name, last_name, user_name, email, hashed_password))
+        c.commit()
+        c.close()
+        st.success("You have joined.")
