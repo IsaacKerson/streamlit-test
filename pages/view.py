@@ -24,7 +24,7 @@ def app():
     
     c.execute(size_query)
     
-    st.markdown(f'##### Database size: {round(c.fetchone()[0] / 1000, 0)} KB')
+    st.markdown(f'##### Database size: {int(c.fetchone()[0] / 1000)} KB')
 
     query = st.text_input("Query", placeholder="Type query here")
 
