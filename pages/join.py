@@ -42,8 +42,9 @@ def app():
     else:
         uct_iso = datetime.datetime.utcnow().isoformat()
         hashed_password = stauth.Hasher(password1).generate()
-        query = "INSERT INTO users(uct_iso, firstname, lastname, username, email, hashed_password) VALUES(?, ?, ?, ?, ?, ?)"
-        c.execute(query, (uct_iso, first_name, last_name, user_name, email, hashed_password))
-        c.commit()
-        c.close()
+        st.write(first_name, last_name, user_name, email, type(email), password1, hashed_password)
+        # query = "INSERT INTO users(uct_iso, firstname, lastname, username, email, hashed_password) VALUES(?, ?, ?, ?, ?, ?)"
+        # c.execute(query, (uct_iso, first_name, last_name, user_name, email, hashed_password))
+        # c.commit()
+        # c.close()
         st.success("You have joined.")
