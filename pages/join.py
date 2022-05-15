@@ -12,7 +12,7 @@ with st.form("join_form"):
     first_name = st.text_input("First Name")
     last_name = st.text_input("Last Name")
     user_name = st.text_input("User Name")
-    password1 = st.text_intput("Password", type="password")
+    password1 = st.text_input("Password", type="password")
     password2 = st.text_input("Confirm Password", type="password")
     
     submitted = st.form_submit_button("Submit")
