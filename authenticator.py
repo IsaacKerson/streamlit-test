@@ -59,7 +59,7 @@ class Authenticate:
         key: str
             The key to be used for hashing the signature of the JWT cookie.
         cookie_expiry_days: int
-            The number of days before the cookie expires on the client's browser.
+            The number of days before the cookiFe expires on the client's browser.
         Returns
         -------
         str
@@ -116,7 +116,7 @@ class Authenticate:
     def get_hashed_password(self):
         query = "SELECT hashed_password FROM ? WHERE username = ?"
         c = self.get_cursor()
-        c.execute(query, (self.dbtable, self.username)
+        c.execute(query, (self.dbtable, self.username))
         return c.fetchone()[0]
   
     def token_encode(self):
