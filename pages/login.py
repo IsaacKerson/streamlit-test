@@ -1,14 +1,17 @@
 import streamlit as st
-import streamlit_authenticator as stauth
 from yaml.loader import SafeLoader
+
+# Custom imports
+from multipage import MultiPage
+from authenticator import Hasher, Authenticate
 
 def app():
     with open('../config.yaml') as file:
         config = yaml.load(file, Loader=SafeLoader)
 
-    hashed_passwords = stauth.Hasher(config['credentials']['passwords']).generate()
+    hashed_passwords = Hasher(config['credentials']['passwords']).generate()
 
-    authenticator = stauth.Authenticate(
+    authenticator = Authenticate(
         config['credentials']['names'], 
         config['credentials']['usernames'], 
         hashed_passwords,
@@ -21,7 +24,7 @@ def app():
     # st.session_state['authentication_status'] to access the name and
     # authentication_status.
 
-    stauth.authenticator.login('Login', 'main')
+    authenticator.login('Login', 'main')
 
     if st.session_state['authentication_status']:
         st.write('Welcome *%s*' % (st.session_state['name']))
