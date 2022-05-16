@@ -99,7 +99,6 @@ class Authenticate:
         except Exception as ex:
             return False
   
-  return c, conn
     def token_encode(self):
         """
         Returns
