@@ -8,6 +8,14 @@ from pages.utils import *
 
 def app():
 
+    DATATBASE = db_path('quiz_maker')
+    c, conn = db_connect(DATABASE)
+    query = "SELECT * FROM users"
+    for item in c.execute(query):
+        st.write("item")
+    conn.commit()
+    conn.close()
+
     yamel_path = db_path('config.yaml')
 
     with open(yamel_path) as file:

@@ -5,8 +5,6 @@ import streamlit as st
 from datetime import datetime, timedelta
 import extra_streamlit_components as stx
 
-# _RELEASE = True
-
 class Hasher:
     def __init__(self, passwords):
         """Create a new instance of "Hasher".
