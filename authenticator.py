@@ -39,7 +39,7 @@ class Hasher:
         str
             The hashed password.
         """
-        return self.hash(password)
+        return self.hash(self.password)
 
 class Authenticate:
     def __init__(self, names, usernames, passwords, cookie_name, key, cookie_expiry_days=30):
