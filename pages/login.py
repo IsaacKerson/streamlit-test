@@ -32,12 +32,13 @@ def app():
     st.write(auth.get_path())
     st.write(auth.get_connection())
     st.write(auth.check_connection())
-    # auth.login('Login', 'main')
 
-    # if st.session_state['authentication_status']:
-    #     auth.logout('Logout', 'main')
-    #     st.title('Some content')
-    # elif st.session_state['authentication_status'] == False:
-    #     st.error('Username/password is incorrect')
-    # elif st.session_state['authentication_status'] == None:
-    #     st.warning('Please enter your username and password')
+    auth.login('Login', 'main')
+
+    if st.session_state['authentication_status']:
+        auth.logout('Logout', 'main')
+        st.title('Some content')
+    elif st.session_state['authentication_status'] == False:
+        st.error('Username/password is incorrect')
+    elif st.session_state['authentication_status'] == None:
+        st.warning('Please enter your username and password')
