@@ -1,6 +1,8 @@
 import jwt
 import yaml
 import bcrypt
+import sqlite3
+import os.path
 import streamlit as st
 from datetime import datetime, timedelta
 import extra_streamlit_components as stx
@@ -42,16 +44,16 @@ class Hasher:
         return self.hash(self.password)
 
 class Authenticate:
-    def __init__(self, names, usernames, passwords, cookie_name, key, cookie_expiry_days=30):
+    def __init__(self, dbname, tablename, cookie_name, key, cookie_expiry_days=30):
         """Create a new instance of "Authenticate".
         Parameters
         ----------
-        names: list
-            The list of names of users.
-        usernames: list
-            The list of usernames in the same order as names.
-        passwords: list
-            The list of hashed passwords in the same order as names.
+        dbname: str
+            First name of user from database
+        dbusername: str
+            Username of user from database
+        dbpassword: str
+            Hashed password from database
         cookie_name: str
             The name of the JWT cookie stored on the client's browser for passwordless reauthentication.
         key: str
@@ -67,9 +69,8 @@ class Authenticate:
         str
             Username of authenticated user.
         """
-        self.names = names
-        self.usernames = usernames
-        self.passwords = passwords
+        self.dbname = dbname
+        self.dbtable = tablename
         self.cookie_name = cookie_name
         self.key = key
         self.cookie_expiry_days = cookie_expiry_days
@@ -83,6 +84,10 @@ class Authenticate:
             st.session_state['username'] = None
         if 'logout' not in st.session_state:
             st.session_state['logout'] = None
+
+    def get_path(self):
+        dir = os.path.dirname(os.path.abspath(__file__))
+        return os.path.join(dir, self.dbname)
 
     def token_encode(self):
         """
@@ -123,7 +128,7 @@ class Authenticate:
         boolean
             The validation state for the input password by comparing it to the hashed password on disk.
         """
-        return bcrypt.checkpw(self.password.encode(), self.passwords[self.index].encode())
+        return bcrypt.checkpw(self.password.encode(), self.dbpassword.encode())
 
     def login(self, form_name, location='main'):
         """Create a new instance of "authenticate".
@@ -168,25 +173,20 @@ class Authenticate:
                 self.password = login_form.text_input('Password', type='password')
 
                 if login_form.form_submit_button('Login'):
-                    self.index = None
-                    for i in range(0, len(self.usernames)):
-                        if self.usernames[i] == self.username:
-                            self.index = i
-                    if self.index is not None:
-                        try:
-                            if self.check_pw():
-                                st.session_state['name'] = self.names[self.index]
-                                self.exp_date = self.exp_date()
-                                self.token = self.token_encode()
-                                self.cookie_manager.set(self.cookie_name, self.token,
-                                expires_at=datetime.now() + timedelta(days=self.cookie_expiry_days))
-                                st.session_state['authentication_status'] = True
-                            else:
-                                st.session_state['authentication_status'] = False
-                        except Exception as e:
-                            print(e)
-                    else:
-                        st.session_state['authentication_status'] = False
+                    try:
+                        if self.check_pw():
+                            st.session_state['name'] = self.dbname
+                            self.exp_date = self.exp_date()
+                            self.token = self.token_encode()
+                            self.cookie_manager.set(self.cookie_name, self.token,
+                            expires_at=datetime.now() + timedelta(days=self.cookie_expiry_days))
+                            st.session_state['authentication_status'] = True
+                        else:
+                            st.session_state['authentication_status'] = False
+                    except Exception as e:
+                        print(e)
+                else:
+                    st.session_state['authentication_status'] = False
 
         return st.session_state['name'], st.session_state['authentication_status'], st.session_state['username']
 

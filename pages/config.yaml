@@ -5,3 +5,6 @@ credentials:
   names: ['John Smith', 'Rebecca Briggs']
   usernames: ['jsmith', 'rbriggs']
   passwords: ['123', '456']
+database:
+  name: 'pages/quiz_maker.db'
+  table: 'users'
