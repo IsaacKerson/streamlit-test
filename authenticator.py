@@ -6,18 +6,18 @@ from datetime import datetime, timedelta
 import extra_streamlit_components as stx
 
 class Hasher:
-    def __init__(self, passwords):
+    def __init__(self, password):
         """Create a new instance of "Hasher".
         Parameters
         ----------
-        passwords: list
-            The list of plain text passwords to be hashed.
+        password: str
+            Plain text password to be hashed.
         Returns
         -------
-        list
-            The list of hashed passwords.
+        str
+            Plain text password to be hashed.
         """
-        self.passwords = passwords
+        self.password = password
 
     def hash(self, password):
         """
@@ -36,14 +36,10 @@ class Hasher:
         """
         Returns
         -------
-        list
-            The list of hashed passwords.
+        str
+            The hashed password.
         """
-        hashedpw = []
-
-        for password in self.passwords:
-            hashedpw.append(self.hash(password))
-        return hashedpw
+        return self.hash(password)
 
 class Authenticate:
     def __init__(self, names, usernames, passwords, cookie_name, key, cookie_expiry_days=30):
