@@ -16,6 +16,7 @@ def app():
     c, conn = db_connect(DATABASE)
 
     if drop_table:
+        st.write("User Table Dropped.")
         query = "DROP TABLE IF EXISTS users"
         c.execute(query)
 
