@@ -30,7 +30,7 @@ def app():
         cookie_expiry_days=30
     )
 
-    print(auth.get_path())
+    st.write(auth.get_path())
     # auth.login('Login', 'main')
 
     # if st.session_state['authentication_status']:
