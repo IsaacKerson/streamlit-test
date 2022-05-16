@@ -10,7 +10,7 @@ from authenticator import Hasher
 
 def app():
 
-    drop_table = FALSE
+    drop_table = False
 
     DATABASE = db_path('quiz_maker.db')
     c, conn = db_connect(DATABASE)
