@@ -104,7 +104,7 @@ class Authenticate:
 
     def check_username(self):
         usernames = []
-        query = ("SELECT username FROM ?")
+        query = "SELECT username FROM ?"
         c = self.get_cursor()
         for item in c.execute(query, self.dbtable):
             usernames.append(item[0])
@@ -112,6 +112,12 @@ class Authenticate:
             return True
         else:
             return False
+
+    def get_hashed_password(self):
+        query = "SELECT hashed_password FROM ? WHERE username = ?"
+        c = self.get_cursor()
+        c.execute(query, (self.dbtable, self.username)
+        return c.fetchone()[0]
   
     def token_encode(self):
         """
@@ -152,7 +158,7 @@ class Authenticate:
         boolean
             The validation state for the input password by comparing it to the hashed password on disk.
         """
-        return bcrypt.checkpw(self.password.encode(), self.dbpassword.encode())
+        return bcrypt.checkpw(self.password.encode(), self.get_hashed_password().encode())
 
     def login(self, form_name, location='main'):
         """Create a new instance of "authenticate".
