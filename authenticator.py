@@ -98,6 +98,20 @@ class Authenticate:
             return True
         except Exception as ex:
             return False
+    
+    def get_cursor(self):
+        return self.get_connection().cursor()
+
+    def check_username(self):
+        usernames = []
+        query = ("SELECT username FROM ?")
+        c = self.get_cursor()
+        for item[0] in c.execute(query, (self.dbtable))
+            usernames.append(item)
+        if self.name in usernames:
+            return True
+        else:
+            return False
   
     def token_encode(self):
         """
