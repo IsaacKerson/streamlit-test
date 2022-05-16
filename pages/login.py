@@ -32,10 +32,12 @@ def app():
     st.write(auth.get_path())
     st.write(auth.get_connection())
     st.write(auth.check_connection())
+
+    auth.login('Login', 'main')
+    
     st.write(auth.check_username())
     st.write(auth.get_hashed_password())
-    auth.login('Login', 'main')
-
+    
     if st.session_state['authentication_status']:
         auth.logout('Logout', 'main')
         st.title('Some content')
