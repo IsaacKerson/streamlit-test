@@ -1,4 +1,3 @@
-from pages.utils import db_connect
 import streamlit as st
 import yaml
 

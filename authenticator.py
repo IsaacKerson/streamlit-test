@@ -2,7 +2,6 @@ import jwt
 import yaml
 import bcrypt
 import streamlit as st
-from yaml.loader import SafeLoader
 from datetime import datetime, timedelta
 import extra_streamlit_components as stx
 
@@ -223,43 +222,3 @@ class Authenticate:
                 st.session_state['name'] = None
                 st.session_state['username'] = None
                 st.session_state['authentication_status'] = None
-
-# if not _RELEASE:
-#     with open('../config.yaml') as file:
-#         config = yaml.load(file, Loader=SafeLoader)
-
-#     hashed_passwords = Hasher(config['credentials']['passwords']).generate()
-
-#     authenticator = Authenticate(
-#         config['credentials']['names'], 
-#         config['credentials']['usernames'], 
-#         hashed_passwords,
-#         config['cookie']['name'], 
-#         config['cookie']['key'], 
-#         cookie_expiry_days=30
-#     )
-
-#     name, authentication_status, username = authenticator.login('Login', 'main')
-
-#     if authentication_status:
-#         authenticator.logout('Logout', 'main')
-#         st.write('Welcome *%s*' % (name))
-#         st.title('Some content')
-#     elif authentication_status == False:
-#         st.error('Username/password is incorrect')
-#     elif authentication_status == None:
-#         st.warning('Please enter your username and password')
-
-    # Alternatively you use st.session_state['name'] and
-    # st.session_state['authentication_status'] to access the name and
-    # authentication_status.
-
-    #authenticator.login('Login', 'main')
-
-    #if st.session_state['authentication_status']:
-    #    st.write('Welcome *%s*' % (st.session_state['name']))
-    #    st.title('Some content')
-    #elif st.session_state['authentication_status'] == False:
-    #    st.error('Username/password is incorrect')
-    #elif st.session_state['authentication_status'] == None:
-    #    st.warning('Please enter your username and password')
