@@ -1,5 +1,5 @@
 from pickle import FALSE
-from pages.utils import not_empty
+from pages.utils import empty
 import streamlit as st
 import sqlite3
 import datetime
