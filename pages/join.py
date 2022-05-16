@@ -42,8 +42,8 @@ def app():
         
         submitted = st.form_submit_button("Submit")
 
-    if empty(first_name) or empty(last_name) or empty(user_name) 
-        or empty(email) or empty(password1) or empty(password2):
+    if empty(first_name) or empty(last_name) or empty(user_name) or \
+        empty(email) or empty(password1) or empty(password2):
         st.warning("Complete all inputs.")
     elif submitted and password1.strip() != password2.strip():
         st.warning("The passwords do not match.")
