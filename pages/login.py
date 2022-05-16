@@ -1,6 +1,6 @@
 from pages.utils import db_connect
 import streamlit as st
-from yaml.loader import SafeLoader
+from yaml
 
 # Custom imports
 from multipage import MultiPage
@@ -13,7 +13,7 @@ def app():
     st.write(yamel_path)
 
     with open(yamel_path) as file:
-        config = yaml.load(file, Loader=SafeLoader)
+        config = yaml.safe_load(file)
 
     hashed_passwords = Hasher(config['credentials']['passwords']).generate()
 
