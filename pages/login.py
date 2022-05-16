@@ -1,6 +1,6 @@
 from pages.utils import db_connect
 import streamlit as st
-from yaml
+import yaml
 
 # Custom imports
 from multipage import MultiPage
