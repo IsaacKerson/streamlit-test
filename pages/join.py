@@ -1,3 +1,4 @@
+from pickle import FALSE
 import streamlit as st
 import sqlite3
 import datetime
@@ -8,8 +9,15 @@ from authenticator import Hasher
 
 def app():
 
+    drop_table = FALSE
+
     DATABASE = db_path('quiz_maker.db')
     c, conn = db_connect(DATABASE)
+    
+    if drop_table:
+        query = "DROP TABLE IF EXISTS users"
+        c.execute(query)
+
     query = "CREATE TABLE IF NOT EXISTS users(uct_iso, firstname, lastname, username, email, hashed_password)"
     c.execute(query)
 
@@ -41,10 +49,11 @@ def app():
         st.warning("This email is already being used.")
     else:
         uct_iso = datetime.datetime.utcnow().isoformat()
-        hashed_password = Hasher(password1).generate()
-        st.write(first_name, last_name, user_name, email, type(email), password1, hashed_password)
-        # query = "INSERT INTO users(uct_iso, firstname, lastname, username, email, hashed_password) VALUES(?, ?, ?, ?, ?, ?)"
-        # c.execute(query, (uct_iso, first_name, last_name, user_name, email, hashed_password))
-        # c.commit()
-        # c.close()
+        #hashed_password = Hasher(password1).generate()
+        hashed_password = "TEMP_PW"
+        st.write(first_name, last_name, user_name, email, hashed_password)
+        query = "INSERT INTO users(uct_iso, firstname, lastname, username, email, hashed_password) VALUES(?, ?, ?, ?, ?, ?)"
+        c.execute(query, (uct_iso, first_name, last_name, user_name, email, hashed_password))
+        c.commit()
+        c.close()
         st.success("You have joined.")
