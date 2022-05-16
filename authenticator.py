@@ -203,18 +203,19 @@ class Authenticate:
                 self.password = login_form.text_input('Password', type='password')
 
                 if login_form.form_submit_button('Login'):
-                    try:
-                        if self.check_pw():
-                            st.session_state['name'] = self.dbname
-                            self.exp_date = self.exp_date()
-                            self.token = self.token_encode()
-                            self.cookie_manager.set(self.cookie_name, self.token,
-                            expires_at=datetime.now() + timedelta(days=self.cookie_expiry_days))
-                            st.session_state['authentication_status'] = True
-                        else:
-                            st.session_state['authentication_status'] = False
-                    except Exception as e:
-                        print(e)
+                    if self.check_username() is not None:
+                        try:
+                            if self.check_pw():
+                                st.session_state['name'] = self.dbname
+                                self.exp_date = self.exp_date()
+                                self.token = self.token_encode()
+                                self.cookie_manager.set(self.cookie_name, self.token,
+                                expires_at=datetime.now() + timedelta(days=self.cookie_expiry_days))
+                                st.session_state['authentication_status'] = True
+                            else:
+                                st.session_state['authentication_status'] = False
+                        except Exception as e:
+                            print(e)
                 else:
                     st.session_state['authentication_status'] = False
 
