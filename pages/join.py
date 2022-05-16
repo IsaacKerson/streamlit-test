@@ -13,7 +13,7 @@ def app():
 
     DATABASE = db_path('quiz_maker.db')
     c, conn = db_connect(DATABASE)
-    
+
     if drop_table:
         query = "DROP TABLE IF EXISTS users"
         c.execute(query)
@@ -54,6 +54,6 @@ def app():
         st.write(first_name, last_name, user_name, email, hashed_password)
         query = "INSERT INTO users(uct_iso, firstname, lastname, username, email, hashed_password) VALUES(?, ?, ?, ?, ?, ?)"
         c.execute(query, (uct_iso, first_name, last_name, user_name, email, hashed_password))
-        c.commit()
-        c.close()
+        conn.commit()
+        conn.close()
         st.success("You have joined.")
