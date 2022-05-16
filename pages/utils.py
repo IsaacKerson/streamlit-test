@@ -6,6 +6,9 @@ import string
 import sqlite3
 import re
 
+def empty(string):
+  return len(string) == 0
+
 def add_blanks(word, sentence, blank = "__"):
   return re.sub(word, blank, sentence, flags=re.IGNORECASE)
 
