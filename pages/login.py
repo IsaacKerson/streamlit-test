@@ -21,7 +21,6 @@ def app():
     with open(yamel_path) as file:
         config = yaml.safe_load(file)
 
-
     auth = Authenticate(
         config['database']['name'], 
         config['database']['table'],
@@ -31,6 +30,8 @@ def app():
     )
 
     st.write(auth.get_path())
+    st.write(auth.get_connection())
+    st.write(auth.check_connection())
     # auth.login('Login', 'main')
 
     # if st.session_state['authentication_status']:
