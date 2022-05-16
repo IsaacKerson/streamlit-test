@@ -9,10 +9,10 @@ from pages.utils import *
 
 def app():
 
-    yamel_path = db_connect('config.yaml')
+    yamel_path = db_path('config.yaml')
     st.write(yamel_path)
-    
-    with open('../config.yaml') as file:
+
+    with open(yamel_path) as file:
         config = yaml.load(file, Loader=SafeLoader)
 
     hashed_passwords = Hasher(config['credentials']['passwords']).generate()
