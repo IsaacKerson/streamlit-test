@@ -1,10 +1,10 @@
 import streamlit as st
-import streamlit_authenticator as stauth
 import sqlite3
 import datetime
 
 # Custom imports
 from pages.utils import *
+from authenticator import Hasher
 
 def app():
 
@@ -41,7 +41,7 @@ def app():
         st.warning("This email is already being used.")
     else:
         uct_iso = datetime.datetime.utcnow().isoformat()
-        hashed_password = stauth.Hasher(password1).generate()
+        hashed_password = Hasher(password1).generate()
         st.write(first_name, last_name, user_name, email, type(email), password1, hashed_password)
         # query = "INSERT INTO users(uct_iso, firstname, lastname, username, email, hashed_password) VALUES(?, ?, ?, ?, ?, ?)"
         # c.execute(query, (uct_iso, first_name, last_name, user_name, email, hashed_password))
