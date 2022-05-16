@@ -8,7 +8,7 @@ from pages.utils import *
 
 def app():
 
-    DATATBASE = db_path('quiz_maker')
+    DATABASE = db_path('quiz_maker')
     c, conn = db_connect(DATABASE)
     query = "SELECT * FROM users"
     for item in c.execute(query):
