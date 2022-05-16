@@ -1,11 +1,17 @@
+from pages.utils import db_connect
 import streamlit as st
 from yaml.loader import SafeLoader
 
 # Custom imports
 from multipage import MultiPage
 from authenticator import Hasher, Authenticate
+from pages.utils import *
 
 def app():
+
+    yamel_path = db_connect('config.yaml')
+    st.write(yamel_path)
+    
     with open('../config.yaml') as file:
         config = yaml.load(file, Loader=SafeLoader)
 
