@@ -114,9 +114,9 @@ class Authenticate:
             return False
 
     def get_hashed_password(self):
-        query = "SELECT hashed_password FROM ? WHERE username = ?"
+        query = f'''SELECT hashed_password FROM {self.dbtable} WHERE username = ?'''
         c = self.get_cursor()
-        c.execute(query, (self.dbtable, self.username))
+        c.execute(query, (self.username, ))
         return c.fetchone()[0]
   
     def token_encode(self):
