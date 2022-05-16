@@ -108,7 +108,7 @@ class Authenticate:
         c = self.get_cursor()
         for item in c.execute(query, self.dbtable):
             usernames.append(item[0])
-        if self.name in usernames:
+        if self.username in usernames:
             return True
         else:
             return False
@@ -158,7 +158,7 @@ class Authenticate:
         boolean
             The validation state for the input password by comparing it to the hashed password on disk.
         """
-        return bcrypt.checkpw(self.password.encode(), self.get_hashed_password().encode())
+        return bcrypt.checkpw(self.password.encode(), self.get_hashed_password())
 
     def login(self, form_name, location='main'):
         """Create a new instance of "authenticate".
