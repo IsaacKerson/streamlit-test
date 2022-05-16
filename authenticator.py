@@ -104,9 +104,9 @@ class Authenticate:
 
     def check_username(self):
         usernames = []
-        query = "SELECT username FROM ?"
+        query = f"SELECT username FROM {self.dbtable}"
         c = self.get_cursor()
-        for item in c.execute(query, self.dbtable):
+        for item in c.execute(query):
             usernames.append(item[0])
         if self.username in usernames:
             return True
