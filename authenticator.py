@@ -106,7 +106,7 @@ class Authenticate:
         usernames = []
         query = ("SELECT username FROM ?")
         c = self.get_cursor()
-        for item in c.execute(query, (self.dbtable))
+        for item in c.execute(query, self.dbtable)
             usernames.append(item[0])
         if self.name in usernames:
             return True
