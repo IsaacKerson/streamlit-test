@@ -90,11 +90,11 @@ class Authenticate:
         return os.path.join(dir, self.dbname)
 
     def get_connection(self):
-        return sqlite3.connect(self.get_path)
+        return sqlite3.connect(self.get_path())
 
     def check_connection(self):
         try:
-            self.get_connection.cursor()
+            self.get_connection().cursor()
             return True
         except Exception as ex:
             return False
