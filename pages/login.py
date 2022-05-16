@@ -37,6 +37,7 @@ def app():
     
     st.write(auth.check_username())
     st.write(auth.get_hashed_password())
+    st.write(auth.check_pw())
     
     if st.session_state['authentication_status']:
         auth.logout('Logout', 'main')

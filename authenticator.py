@@ -158,7 +158,7 @@ class Authenticate:
         boolean
             The validation state for the input password by comparing it to the hashed password on disk.
         """
-        return bcrypt.checkpw(self.password.encode(), self.get_hashed_password())
+        return bcrypt.checkpw(self.password.encode(), self.get_hashed_password().encode())
 
     def login(self, form_name, location='main'):
         """Create a new instance of "authenticate".
